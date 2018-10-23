@@ -1,10 +1,19 @@
 package lesson1
 
+//import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertArrayEquals
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Tag
-import kotlin.test.Test
+//import kotlin.test.Test
+import org.junit.jupiter.api.Test
+import java.io.File
 
 class TaskTestsKotlin : AbstractTaskTests() {
+    private fun assertFile(name: String, expectedContent: String) {
+        val file = File(name)
+        val content = file.readLines().joinToString("\n")
+        assertEquals(expectedContent, content)
+    }
 
     @Test
     @Tag("Easy")
