@@ -4,6 +4,7 @@ import lesson5.Graph
 import lesson5.Path
 import lesson7.AbstractVoyagingPathSearcher
 
+
 class AnnealingVoyagingPathSearcher(
         g: Graph,
         val startTemperature: Int,

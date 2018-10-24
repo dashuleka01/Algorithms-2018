@@ -2,6 +2,8 @@
 
 package lesson2
 
+import kotlin.math.max
+
 /**
  * Получение наибольшей прибыли (она же -- поиск максимального подмассива)
  * Простая
@@ -92,7 +94,31 @@ fun josephTask(menNumber: Int, choiceInterval: Int): Int {
  * вернуть ту из них, которая встречается раньше в строке first.
  */
 fun longestCommonSubstring(first: String, second: String): String {
-    TODO()
+    var word = ""
+    var maxValue = 0
+    var maxX = 0
+    var array = Array(first.length, { Array(second.length, { 0 }) })
+    for (i in 0..first.lastIndex) {
+        for (j in 0..second.lastIndex) {
+            if (first[i] == second[j]) {
+                if (i > 0 && j > 0)
+                    array[i][j] = array[i - 1][j - 1] + 1
+                else
+                    array[i][j]++
+                if (array[i][j] > maxValue) {
+                    maxValue = array[i][j]
+                    maxX = i
+                }
+            }
+        }
+    }
+
+    for (k in 1..maxValue) {
+        word += first[maxX]
+        maxX--
+    }
+
+    return word.reversed()
 }
 
 /**

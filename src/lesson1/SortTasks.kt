@@ -116,10 +116,10 @@ fun InsertionSort(list: List<Double>): List<Double> {
 fun sortTemperatures(inputName: String, outputName: String) {
     val outputStream = File(outputName).bufferedWriter()
     val list = mutableListOf<Double>()
-    for (lines in File(inputName).readLines()){
+    for (lines in File(inputName).readLines()) {
         list.add(lines.toDouble())
     }
-    for (i in list.sorted()){
+    for (i in list.sorted()) {
         outputStream.write(i.toString() + "\n")
     }
     outputStream.close()
@@ -155,7 +155,31 @@ fun sortTemperatures(inputName: String, outputName: String) {
  * 2
  */
 fun sortSequence(inputName: String, outputName: String) {
-    TODO()
+    var map = mutableMapOf<String, Int>()
+    val outputStream = File(outputName).bufferedWriter()
+    var maxValue = 0
+    for (lines in File(inputName).readLines()) {
+        if (map.containsKey(lines)) {
+            map.put(lines, map.getOrDefault(lines, 0) + 1);
+            if (map[lines] ?: 0 > maxValue)
+                maxValue = map[lines] ?: 0
+        } else {
+            map.set(lines, 1)
+        }
+    }
+    
+    val maxMap = map.filterValues { it == maxValue }
+    val maxKey = maxMap.toSortedMap(compareBy { it }).firstKey()
+
+    for (lines in File(inputName).readLines()) {
+        if (!lines.equals(maxKey))
+            outputStream.write(lines + "\n")
+    }
+
+    for (i in 1..maxValue)
+        outputStream.write(maxKey.toString() + "\n")
+
+    outputStream.close()
 }
 
 /**
