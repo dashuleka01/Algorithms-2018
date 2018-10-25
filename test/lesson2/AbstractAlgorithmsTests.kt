@@ -65,11 +65,9 @@ abstract class AbstractAlgorithmsTests {
         assertEquals(50000, josephTask(50000, 1))
         assertEquals(1, josephTask(1, 1))
         assertEquals(2, josephTask(2, 1))
-
-
         assertEquals(28, josephTask(40, 3))
         var menNumber = 2
-        for (i in 1..20) {
+        for (i in 1..19) {
             assertEquals(1, josephTask(menNumber, 2))
             menNumber *= 2
         }
