@@ -2,6 +2,7 @@
 
 package lesson2
 
+import java.io.File
 import kotlin.math.max
 
 /**
@@ -79,7 +80,20 @@ fun optimizeBuyAndSell(inputName: String): Pair<Int, Int> {
  * Х х Х
  */
 fun josephTask(menNumber: Int, choiceInterval: Int): Int {
-    TODO()
+    val list = mutableListOf<Int>()
+    var y = 0
+    for (i in 1..menNumber)
+        list.add(i)
+    while (list.lastIndex != 0) {
+        for (i in 1 until choiceInterval) {
+            y++
+            if (y >= list.size) {
+                y -= list.size
+            }
+        }
+        list.removeAt(y)
+    }
+    return list[0]
 }
 
 /**
@@ -162,5 +176,27 @@ fun calcPrimesNumber(limit: Int): Int {
  * Остальные символы ни в файле, ни в словах не допускаются.
  */
 fun baldaSearcher(inputName: String, words: Set<String>): Set<String> {
+    var result = mutableSetOf<String>()
+    /*var matrix = Array(File(inputName).readLines().size, { Array(File(inputName).readLines()[0].length, { '0' }) })
+    val x = File(inputName).readLines().lastIndex
+    val y = File(inputName).readLines()[0].lastIndex
+    for(i in  0..File(inputName).readLines().lastIndex){
+        for (j in 0..File(inputName).readLines()[0].lastIndex){
+            matrix[i][j] = File(inputName).readLines()[i][j]
+        }
+    }
+
+    for (i in)*/
+    /*var x = 0
+    for (lines in File(inputName).readLines()){
+        for (letter in  lines){
+            for(word in words){
+                if (word[x] == letter)
+                    x++
+            }
+        }
+    }
+
+    return result*/
     TODO()
 }

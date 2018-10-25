@@ -61,10 +61,12 @@ abstract class AbstractAlgorithmsTests {
     }
 
     fun josephTask(josephTask: (Int, Int) -> Int) {
+        assertEquals(3, josephTask(8, 5))
+        assertEquals(50000, josephTask(50000, 1))
         assertEquals(1, josephTask(1, 1))
         assertEquals(2, josephTask(2, 1))
-        assertEquals(50000000, josephTask(50000000, 1))
-        assertEquals(3, josephTask(8, 5))
+
+
         assertEquals(28, josephTask(40, 3))
         var menNumber = 2
         for (i in 1..20) {
