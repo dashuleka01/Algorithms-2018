@@ -96,22 +96,6 @@ fun sortAddresses(inputName: String, outputName: String) {
  * 99.5
  * 121.3
  */
-fun InsertionSort(list: List<Double>): List<Double> {
-    val newList = list.toMutableList();
-    for (i in 1 until newList.size) {
-        val current = newList[i]
-        var j = i - 1
-        while (j >= 0) {
-            if (newList[j] > current)
-                newList[j + 1] = newList[j]
-            else
-                break
-            j--
-        }
-        newList[j + 1] = current
-    }
-    return newList
-}
 
 fun sortTemperatures(inputName: String, outputName: String) {
     val outputStream = File(outputName).bufferedWriter()
