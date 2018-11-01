@@ -1,6 +1,5 @@
 package lesson2
 
-//import org.junit.Test
 import org.junit.jupiter.api.Tag
 //import kotlin.test.Test
 import org.junit.jupiter.api.Test

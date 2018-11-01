@@ -71,12 +71,14 @@ abstract class AbstractAlgorithmsTests {
             assertEquals(1, josephTask(menNumber, 2))
             menNumber *= 2
         }
+        assertEquals(1, josephTask(1, 6)) //мой тест
     }
 
     fun longestCommonSubstring(longestCommonSubstring: (String, String) -> String) {
         assertEquals("", longestCommonSubstring("мой мир", "я"))
         assertEquals("зд", longestCommonSubstring("здравствуй мир", "мы здесь"))
         assertEquals("СЕРВАТОР", longestCommonSubstring("ОБСЕРВАТОРИЯ", "КОНСЕРВАТОРЫ"))
+        assertEquals("ЛО", longestCommonSubstring("ЛОЖКА", "ЛОКА")) //мой тест
         assertEquals("огда ", longestCommonSubstring(
                 """
 Мой дядя самых честных правил,

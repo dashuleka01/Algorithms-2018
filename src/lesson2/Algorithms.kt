@@ -84,8 +84,8 @@ fun josephTask(menNumber: Int, choiceInterval: Int): Int {
     var y = 0
     for (i in 1..menNumber)
         list.add(i)
-    while (list.lastIndex != 0) {
-        for (i in 1 until choiceInterval) {
+    while (list.lastIndex != 0) { //T = O(n)
+        for (i in 1 until choiceInterval) { //T = O(m)
             y++
             if (y >= list.size) {
                 y -= list.size
@@ -94,6 +94,8 @@ fun josephTask(menNumber: Int, choiceInterval: Int): Int {
         list.removeAt(y)
     }
     return list[0]
+
+    //Трудоемкость = O(n * m), Ресурсоемкость = О(n)
 }
 
 /**
@@ -112,8 +114,8 @@ fun longestCommonSubstring(first: String, second: String): String {
     var maxValue = 0
     var maxX = 0
     var array = Array(first.length, { Array(second.length, { 0 }) })
-    for (i in 0..first.lastIndex) {
-        for (j in 0..second.lastIndex) {
+    for (i in 0..first.lastIndex) { //Т = О(n)
+        for (j in 0..second.lastIndex) {  //Т = О(m)
             if (first[i] == second[j]) {
                 if (i > 0 && j > 0)
                     array[i][j] = array[i - 1][j - 1] + 1
@@ -133,6 +135,7 @@ fun longestCommonSubstring(first: String, second: String): String {
     }
 
     return word.reversed()
+    //Трудоемкость = O(n * m), Ресурсоемкость = O(n * n)
 }
 
 /**
@@ -176,27 +179,5 @@ fun calcPrimesNumber(limit: Int): Int {
  * Остальные символы ни в файле, ни в словах не допускаются.
  */
 fun baldaSearcher(inputName: String, words: Set<String>): Set<String> {
-    var result = mutableSetOf<String>()
-    /*var matrix = Array(File(inputName).readLines().size, { Array(File(inputName).readLines()[0].length, { '0' }) })
-    val x = File(inputName).readLines().lastIndex
-    val y = File(inputName).readLines()[0].lastIndex
-    for(i in  0..File(inputName).readLines().lastIndex){
-        for (j in 0..File(inputName).readLines()[0].lastIndex){
-            matrix[i][j] = File(inputName).readLines()[i][j]
-        }
-    }
-
-    for (i in)*/
-    /*var x = 0
-    for (lines in File(inputName).readLines()){
-        for (letter in  lines){
-            for(word in words){
-                if (word[x] == letter)
-                    x++
-            }
-        }
-    }
-
-    return result*/
     TODO()
 }

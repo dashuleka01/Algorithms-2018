@@ -101,12 +101,13 @@ fun sortTemperatures(inputName: String, outputName: String) {
     val outputStream = File(outputName).bufferedWriter()
     val list = mutableListOf<Double>()
     for (lines in File(inputName).readLines()) {
-        list.add(lines.toDouble())
+        list.add(lines.toDouble())                  
     }
     for (i in list.sorted()) {
         outputStream.write(i.toString() + "\n")
     }
     outputStream.close()
+    // Итого: Трудоемкость = O(n), Ресурсоемкость = O(n)
 }
 
 /**
@@ -144,7 +145,7 @@ fun sortSequence(inputName: String, outputName: String) {
     var maxValue = 0
     for (lines in File(inputName).readLines()) {
         if (map.containsKey(lines)) {
-            map.put(lines, map.getOrDefault(lines, 0) + 1);
+            map.put(lines, map.getOrDefault(lines, 0) + 1)
             if (map[lines] ?: 0 > maxValue)
                 maxValue = map[lines] ?: 0
         } else {
@@ -152,8 +153,8 @@ fun sortSequence(inputName: String, outputName: String) {
         }
     }
     
-    val maxMap = map.filterValues { it == maxValue }
-    val maxKey = maxMap.toSortedMap(compareBy { it }).firstKey()
+    map.filterValues { it == maxValue }
+    val maxKey = map.toSortedMap(compareBy { it }).firstKey()
 
     for (lines in File(inputName).readLines()) {
         if (!lines.equals(maxKey))
@@ -164,6 +165,7 @@ fun sortSequence(inputName: String, outputName: String) {
         outputStream.write(maxKey.toString() + "\n")
 
     outputStream.close()
+    //Итог: Трудоемкость = О(n), Ресурсоемкость = O(n * n)
 }
 
 /**
