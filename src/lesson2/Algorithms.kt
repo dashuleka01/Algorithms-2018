@@ -80,7 +80,7 @@ fun optimizeBuyAndSell(inputName: String): Pair<Int, Int> {
  * Х х Х
  */
 fun josephTask(menNumber: Int, choiceInterval: Int): Int {
-    val list = mutableListOf<Int>()
+    val list = arrayListOf<Int>()
     var y = 0
     for (i in 1..menNumber)
         list.add(i)
