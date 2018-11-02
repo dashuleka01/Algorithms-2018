@@ -100,10 +100,8 @@ fun sortAddresses(inputName: String, outputName: String) {
 fun sortTemperatures(inputName: String, outputName: String) {
     val outputStream = File(outputName).bufferedWriter()
     val list = mutableListOf<Double>()
-    for (lines in File(inputName).readLines()) {
-        list.add(lines.toDouble())                  
-    }
-    for (i in list.sorted()) {
+    list.addAll(0, File(inputName).readLines().map { it -> it.toDouble() }.sorted())
+    for (i in list) {
         outputStream.write(i.toString() + "\n")
     }
     outputStream.close()
