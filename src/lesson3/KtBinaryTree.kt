@@ -2,6 +2,9 @@ package lesson3
 
 import java.util.SortedSet
 import kotlin.NoSuchElementException
+import jdk.nashorn.internal.objects.NativeArray.pop
+import java.util.Stack
+
 
 // Attention: comparable supported but comparator is not
 class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSortedSet<T> {
@@ -11,7 +14,7 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
     override var size = 0
         private set
 
-    private class Node<T>(val value: T) {
+    private class Node<T>(var value: T) {
 
         var left: Node<T>? = null
 
@@ -55,8 +58,25 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
      * Средняя
      */
     override fun remove(element: T): Boolean {
-        TODO()
+        val removable = find(element)
+
+        if (removable == null)
+            return false
+        else {
+            when{
+                removable.right == null && removable.left == null -> {
+
+                }
+            }
+
+        }
+        return false
     }
+
+    private fun minimum(node: Node<T>): Node<T> {
+        return if (node.left == null) node else minimum(node.left!!)
+    }
+
 
     override operator fun contains(element: T): Boolean {
         val closest = find(element)
@@ -79,12 +99,46 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
 
         private var current: Node<T>? = null
 
+        private fun InOrderTraversal(): List<Node<T>> {
+            var stack = Stack<Node<T>>()
+            var curNode = root
+            var goLeftNext = true
+            var list = mutableListOf<Node<T>>()
+
+            if (root != null) {
+                stack.push(curNode)
+
+                while (stack.count() > 0) {
+                    if (goLeftNext) {
+                        while (curNode?.left != null) {
+                            stack.push(curNode)
+                            curNode = curNode?.left
+                        }
+                    }
+
+                    list.add(curNode!!)
+
+                    if (curNode?.right != null) {
+                        curNode = curNode.right
+                        goLeftNext = true
+                    } else {
+                        curNode = stack.pop()
+                        goLeftNext = false
+                    }
+                }
+            }
+            return list
+        }
+
         /**
          * Поиск следующего элемента
          * Средняя
          */
+        private var list = InOrderTraversal()
+        private var iter = list.iterator()
+
         private fun findNext(): Node<T>? {
-            TODO()
+            return iter.next()
         }
 
         override fun hasNext(): Boolean = findNext() != null

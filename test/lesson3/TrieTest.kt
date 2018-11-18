@@ -3,7 +3,7 @@ package lesson3
 import org.junit.jupiter.api.Tag
 import kotlin.test.*
 
-class TrieTest {
+class fTrieTest {
 
     @Test
     @Tag("Example")

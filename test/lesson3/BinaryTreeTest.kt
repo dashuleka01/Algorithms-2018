@@ -90,6 +90,19 @@ class BinaryTreeTest {
     }
 
     private fun testIterator(create: () -> CheckableSortedSet<Int>) {
+       /* val list = mutableListOf<Int>(4, 2, 1, 3, 5, 7, 6, 8)
+        val treeSet = TreeSet<Int>()
+        val binarySet = create()
+        for (element in list) {
+            treeSet += element
+            binarySet += element
+        }
+        val treeIt = treeSet.iterator()
+        val binaryIt = binarySet.iterator()
+        println("Traversing $list")
+        while (treeIt.hasNext()) {
+            assertEquals(treeIt.next(), binaryIt.next())
+        }*/
         val random = Random()
         for (iteration in 1..100) {
             val list = mutableListOf<Int>()
