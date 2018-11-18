@@ -19,6 +19,7 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
         var left: Node<T>? = null
 
         var right: Node<T>? = null
+
     }
 
     override fun add(element: T): Boolean {
@@ -58,23 +59,7 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
      * Средняя
      */
     override fun remove(element: T): Boolean {
-        val removable = find(element)
-
-        if (removable == null)
-            return false
-        else {
-            when{
-                removable.right == null && removable.left == null -> {
-
-                }
-            }
-
-        }
-        return false
-    }
-
-    private fun minimum(node: Node<T>): Node<T> {
-        return if (node.left == null) node else minimum(node.left!!)
+        TODO()
     }
 
 
@@ -129,6 +114,7 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
             }
             return list
         }
+        //Трудоемкость = O(n), Ресурсоемкость = ***
 
         /**
          * Поиск следующего элемента
@@ -140,6 +126,7 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
         private fun findNext(): Node<T>? {
             return iter.next()
         }
+        //Трудоемкость = O(n), Ресурсоемкость = ***
 
         override fun hasNext(): Boolean = findNext() != null
 
@@ -166,24 +153,43 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
      * Очень сложная
      */
     override fun subSet(fromElement: T, toElement: T): SortedSet<T> {
-        TODO()
+        val set = sortedSetOf<T>()
+        val iterator = BinaryTreeIterator()
+        var x = iterator.next()
+        try {
+            while (x < fromElement) {
+                x = iterator.next()
+            }
+            while (x >= fromElement && x < toElement){
+                set.add(x)
+                x = iterator.next()
+            }
+        } catch (e: Exception){}
+        return set
     }
+    //Трудоемкость = O(n^2), Ресурсоемкость = ***
 
     /**
      * Найти множество всех элементов меньше заданного
      * Сложная
      */
     override fun headSet(toElement: T): SortedSet<T> {
-        TODO()
+        val set = subSet(first(), toElement)
+        if(size != 1) set.add(first())
+        return set
     }
+    //Трудоемкость = O(n^2), Ресурсоемкость = ***
 
     /**
      * Найти множество всех элементов больше или равных заданного
      * Сложная
      */
     override fun tailSet(fromElement: T): SortedSet<T> {
-        TODO()
+        val set = subSet(fromElement, last())
+        if (size != 1) set.add(last())
+        return set
     }
+    //Трудоемкость = O(n^2), Ресурсоемкость = ***
 
     override fun first(): T {
         var current: Node<T> = root ?: throw NoSuchElementException()
