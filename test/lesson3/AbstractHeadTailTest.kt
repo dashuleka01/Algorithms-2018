@@ -42,6 +42,30 @@ abstract class AbstractHeadTailTest {
 
     }
 
+
+
+    protected fun myHeadSetTest(create: () -> CheckableSortedSet<Int>) {
+        val list = mutableListOf<Int>(4, 2, 1, 3, 5, 7, 6, 8) //my test
+
+        list.clear() //краевой тест
+        list.add(2)
+        val binarySet1 = create()
+        for (element in list) {
+            binarySet1 += element
+        }
+        assertEquals(sortedSetOf(), binarySet1.headSet(0))
+
+        list.clear() //тест на производительность
+        val binarySet2 = create()
+        for (i in 1..10000)
+            list.add(i)
+        list.shuffle()
+        for (element in list)
+            binarySet2 += element
+        list.remove(10000)
+        assertEquals(list.toSortedSet(), binarySet2.headSet(10000))
+    }
+
     protected fun doTailSetTest() {
         var set: SortedSet<Int> = tree.tailSet(5)
         assertEquals(false, set.contains(1))
@@ -59,6 +83,27 @@ abstract class AbstractHeadTailTest {
         for (i in 1..10)
             assertEquals(true, set.contains(i))
 
+    }
+
+    protected fun myTailSetTest(create: () -> CheckableSortedSet<Int>) {
+        val list = mutableListOf<Int>(4, 2, 1, 3, 5, 7, 6, 8) //my test
+
+        list.clear() //краевой тест
+        list.add(1)
+        val binarySet1 = create()
+        for (element in list) {
+            binarySet1 += element
+        }
+        assertEquals(sortedSetOf(), binarySet1.tailSet(2))
+
+        list.clear() //тест на производительность
+        val binarySet2 = create()
+        for (i in 1..10000)
+            list.add(i)
+        list.shuffle()
+        for (element in list)
+            binarySet2 += element
+        assertEquals(list.toSortedSet(), binarySet2.tailSet(1))
     }
 
     protected fun doHeadSetRelationTest() {
@@ -94,7 +139,43 @@ abstract class AbstractHeadTailTest {
     }
 
     protected fun doSubSetTest() {
-        TODO()
+        var set: SortedSet<Int> = tree.subSet(3, 6)
+        assertEquals(false, set.contains(1))
+        assertEquals(false, set.contains(2))
+        assertEquals(true, set.contains(3))
+        assertEquals(true, set.contains(4))
+        assertEquals(true, set.contains(5))
+        assertEquals(false, set.contains(6))
+        assertEquals(false, set.contains(7))
+        assertEquals(false, set.contains(8))
+        assertEquals(false, set.contains(9))
+        assertEquals(false, set.contains(10))
+
+        set = tree.subSet(-128, 128)
+        for (i in 1..10)
+            assertEquals(true, set.contains(i))
+    }
+
+    protected fun mySubSetTest(create: () -> CheckableSortedSet<Int>) {
+        val list = mutableListOf<Int>(4, 2, 1, 3, 5, 7, 6, 8) //обычный тест
+
+        list.clear() //краевой тест
+        list.add(1)
+        val binarySet1 = create()
+        for (element in list) {
+            binarySet1 += element
+        }
+        assertEquals(binarySet1.subSet(2, 3), sortedSetOf())
+
+        list.clear() //тест на производительность
+        val binarySet2 = create()
+        for (i in 1..10000)
+            list.add(i)
+        list.shuffle()
+        for (element in list)
+            binarySet2 += element
+        list.remove(10000)
+        assertEquals(list.toSortedSet(), binarySet2.subSet(1, 10000))
     }
 
 }
