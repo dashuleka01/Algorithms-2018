@@ -114,7 +114,7 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
             }
             return list
         }
-        //Трудоемкость = O(n * m), Ресурсоемкость = O(n * m)
+        //Трудоемкость = O(n * m), Ресурсоемкость = O(n)
 
         /**
          * Поиск следующего элемента
@@ -126,7 +126,7 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
         private fun findNext(): Node<T>? {
             return iter.next()
         }
-        //Трудоемкость = O(n * m), Ресурсоемкость = O(n * m)
+        //Трудоемкость = O(n * m), Ресурсоемкость = O(n)
 
         override fun hasNext(): Boolean = findNext() != null
 
@@ -167,7 +167,7 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
         } catch (e: Exception){}
         return set
     }
-    //Трудоемкость = O(n * m * p), Ресурсоемкость = O(n * m * p)
+    //Трудоемкость = O(n * m * p), Ресурсоемкость = O(n)
 
     /**
      * Найти множество всех элементов меньше заданного
@@ -178,7 +178,7 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
         if(size != 1) set.add(first())
         return set
     }
-    //Трудоемкость = O(n * m * p), Ресурсоемкость = O(n * m * p)
+    //Трудоемкость = O(n * m * p), Ресурсоемкость = O(n)
 
     /**
      * Найти множество всех элементов больше или равных заданного
@@ -189,7 +189,7 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
         if (size != 1) set.add(last())
         return set
     }
-    //Трудоемкость = O(n * m * p), Ресурсоемкость = O(n * m * p)
+    //Трудоемкость = O(n * m * p), Ресурсоемкость = O(n)
 
     override fun first(): T {
         var current: Node<T> = root ?: throw NoSuchElementException()
