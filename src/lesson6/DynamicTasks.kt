@@ -2,6 +2,8 @@
 
 package lesson6
 
+import kotlin.system.exitProcess
+
 /**
  * Наибольшая общая подпоследовательность.
  * Средняя
@@ -13,8 +15,50 @@ package lesson6
  * Если общей подпоследовательности нет, вернуть пустую строку.
  * При сравнении подстрок, регистр символов *имеет* значение.
  */
+
+var res = ""
+
 fun longestCommonSubSequence(first: String, second: String): String {
-    TODO()
+    res = ""
+    var matrix = Array(first.length + 1, { Array(second.length + 1, { 0 }) })
+    var result = ""
+    var previous = Array(first.length + 1, { Array(second.length + 1, { Pair<Int, Int>(0, 0) }) })
+    for (i in 1..first.length) {
+        for (j in 1..second.length) {
+            when {
+                first[i - 1] == second[j - 1] -> {
+                    matrix[i][j] = matrix[i - 1][j - 1] + 1
+                    previous[i][j] = Pair(i - 1, j - 1)
+                }
+                matrix[i - 1][j] >= matrix[i][j - 1] -> {
+                    matrix[i][j] = matrix[i - 1][j]
+                    previous[i][j] = Pair(i - 1, j)
+                }
+                else -> {
+                    matrix[i][j] = matrix[i][j - 1]
+                    previous[i][j] = Pair(i, j - 1)
+                }
+            }
+        }
+    }
+
+    printLCSS(first.length, second.length, previous, first)
+    return res
+}
+
+//Сложность = O(n*m), Ресурсоемкость = O(n*m)
+
+
+fun printLCSS(i: Int, j: Int, prev: Array<Array<Pair<Int, Int>>>, word: String) {
+    when {
+        i == 0 || j == 0 -> return
+        prev[i][j] == Pair(i - 1, j - 1) -> {
+            printLCSS(i - 1, j - 1, prev, word)
+            res += word[i - 1]
+        }
+        prev[i][j] == Pair(i - 1, j) -> printLCSS(i - 1, j, prev, word)
+        else -> printLCSS(i, j - 1, prev, word)
+    }
 }
 
 /**
@@ -30,9 +74,38 @@ fun longestCommonSubSequence(first: String, second: String): String {
  * В примере ответами являются 2, 8, 9, 12 или 2, 5, 9, 12 -- выбираем первую из них.
  */
 fun longestIncreasingSubSequence(list: List<Int>): List<Int> {
-    TODO()
+    if (list.isEmpty()) return listOf()
+    val resList = mutableListOf<Int>()
+    val n = list.size
+    val previous = Array(n, { i -> 0 })
+    val array = Array(n, { i -> 0 })
+    for (i in 0 until n) {
+        array[i] = 1
+        previous[i] = -1
+        for (j in 0 until i) {
+            if (list[j] < list[i] && array[j] + 1 > array[i]) {
+                array[i] = array[j] + 1
+                previous[i] = j
+            }
+        }
+    }
+    var position = 0
+    var length = array[0]
+    for (k in 0 until n) {
+        if (array[k] > length) {
+            position = k
+            length = array[k]
+        }
+    }
+    while (position != -1) {
+        resList.add(list[position])
+        position = previous[position]
+    }
+    resList.reverse()
+    return resList
 }
 
+//Трудоемкость = O(n*n), Ресурсоемкость = O(n)
 /**
  * Самый короткий маршрут на прямоугольном поле.
  * Сложная
