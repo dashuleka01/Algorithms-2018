@@ -16,12 +16,8 @@ import kotlin.system.exitProcess
  * При сравнении подстрок, регистр символов *имеет* значение.
  */
 
-var res = ""
-
 fun longestCommonSubSequence(first: String, second: String): String {
-    res = ""
     var matrix = Array(first.length + 1, { Array(second.length + 1, { 0 }) })
-    var result = ""
     var previous = Array(first.length + 1, { Array(second.length + 1, { Pair<Int, Int>(0, 0) }) })
     for (i in 1..first.length) {
         for (j in 1..second.length) {
@@ -41,25 +37,29 @@ fun longestCommonSubSequence(first: String, second: String): String {
             }
         }
     }
-
-    printLCSS(first.length, second.length, previous, first)
-    return res
+    return printLCSS(first.length, second.length, previous, first)
 }
 
 //Сложность = O(n*m), Ресурсоемкость = O(n*m)
 
-
-fun printLCSS(i: Int, j: Int, prev: Array<Array<Pair<Int, Int>>>, word: String) {
-    when {
-        i == 0 || j == 0 -> return
-        prev[i][j] == Pair(i - 1, j - 1) -> {
-            printLCSS(i - 1, j - 1, prev, word)
-            res += word[i - 1]
+fun printLCSS(i: Int, j: Int, prev: Array<Array<Pair<Int, Int>>>, word: String): String {
+    var b = ""
+    var k = i
+    var l = j
+    while (k != 0 && l != 0) {
+        when {
+            prev[k][l] == Pair(k - 1, l - 1) -> {
+                b += word[k - 1]
+                k--
+                l--
+            }
+            prev[k][l] == Pair(k - 1, l) -> k--
+            else -> l--
         }
-        prev[i][j] == Pair(i - 1, j) -> printLCSS(i - 1, j, prev, word)
-        else -> printLCSS(i, j - 1, prev, word)
     }
+    return b.reversed()
 }
+
 
 /**
  * Наибольшая возрастающая подпоследовательность
@@ -77,8 +77,8 @@ fun longestIncreasingSubSequence(list: List<Int>): List<Int> {
     if (list.isEmpty()) return listOf()
     val resList = mutableListOf<Int>()
     val n = list.size
-    val previous = Array(n, { i -> 0 })
-    val array = Array(n, { i -> 0 })
+    val previous = Array(n, { 0 })
+    val array = Array(n, { 0 })
     for (i in 0 until n) {
         array[i] = 1
         previous[i] = -1
